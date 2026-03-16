@@ -26,6 +26,15 @@
   --font-heading: 'Playfair Display', serif;
 
   /* Spacing — Exercise 6: add --space-xs through --space-xl here */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --space-xl: 64px;
+  /* Shadows — Exercise 6 */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.15);
 
   /* Shadows — Exercise 6: add --shadow-sm, --shadow-md, --shadow-lg here */
 
@@ -62,6 +71,8 @@ a {
 img {
   /* Exercise 5: make images responsive */
   display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 ul {
@@ -86,7 +97,9 @@ section {
 
 /* HEADER — make it a flex row */
 .header-inner {
-  /* TODO: display flex, justify-content space-between, align-items center */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 16px 0;
 }
 
@@ -98,7 +111,8 @@ section {
 }
 
 .nav-links {
-  /* TODO: display flex, gap 24px */
+  display: flex;
+  gap: 24px;
 }
 
 .nav-links a {
@@ -111,29 +125,44 @@ section {
 
 /* ABOUT — image left, text right */
 .about-content {
-  /* TODO: display flex, gap 40px, align-items flex-start */
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
 }
 
 .profile-photo {
-  /* TODO: flex 0 0 200px, border-radius, object-fit cover */
+  flex: 0 0 200px;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
-  /* Exercise 6: add grayscale filter */
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+}
+
+.profile-photo:hover {
+  filter: grayscale(0%);
 }
 
 .about-text {
-  /* TODO: flex 1 */
+  flex: 1;
 }
 
 /* SKILLS — wrapping flex tags */
 .skills-flex {
-  /* TODO: display flex, flex-wrap wrap, gap 12px */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .skills-flex li {
-  /* TODO: flex 1 1 150px, padding, border-radius, background, box-shadow */
+  flex: 1 1 150px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  font-weight: 600;
   /* Exercise 4: add :hover transition */
 }
 
@@ -144,16 +173,35 @@ section {
 
 .projects-grid {
   /* TODO: display grid, grid-template-columns repeat(auto-fill, minmax(280px,1fr)), gap */
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
   margin-top: 40px;
 }
 
+
 .project-card {
-  background: var(--color-white);
-  border-radius: var(--radius-md);
+   background: white;
+  border-radius: 12px;
   padding: 24px;
+  box-shadow: var(--shadow-md);
   border-top: 4px solid var(--color-secondary);
   /* Exercise 6: add box-shadow using variable */
   /* Exercise 4: add transition for transform + box-shadow */
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
 }
 
 .project-card h3 {
@@ -166,11 +214,11 @@ section {
 }
 
 .project-card a {
-  display: inline-block;
+   display: inline-block;
   padding: 8px 20px;
   background: var(--color-secondary);
-  color: var(--color-white);
-  border-radius: var(--radius-sm);
+  color: white;
+  border-radius: 4px;
   font-size: 0.9rem;
   /* Exercise 4: add transition */
 }
@@ -182,20 +230,39 @@ section {
 
 /* HEADER — sticky */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: var(--color-white);
   border-bottom: 1px solid #e5e7eb;
-  /* TODO: position sticky, top 0, z-index 100 */
 }
 
 /* HERO — full-viewport flex center */
 .hero {
   min-height: 100vh;
-  /* TODO: display flex, flex-direction column, justify-content center, align-items center */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: var(--color-white);
   /* needed for ::before pseudo-element in Exercise 6 */
   position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero h1 {
@@ -223,9 +290,15 @@ section {
 
 /* BACK-TO-TOP — fixed button */
 .back-to-top {
-  /* TODO: position fixed, bottom 30px, right 30px */
-  /* TODO: width 44px, height 44px, border-radius 50% */
-  /* TODO: display flex, align-items center, justify-content center */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--color-accent);
   color: var(--color-white);
   font-size: 1.2rem;
@@ -239,43 +312,88 @@ section {
    EXERCISE 4 — Animations & Transitions
    ============================================================ */
 
-/* TODO: Define @keyframes fadeIn */
-/* @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-} */
 
-/* Add :hover states with transitions for:
-   - .nav-links a
-   - .project-card (translateY + box-shadow)
-   - .project-card a (background-color)
-   - .skills-flex li (scale + background)
-   - .btn-primary (translateY)
-   - .back-to-top (scale)
-*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero h1 {
+  animation: fadeIn 0.8s ease-out both;
+}
+
+.tagline {
+  animation: fadeIn 0.8s ease-out 0.3s both;
+}
+
+.btn-primary {
+  animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.project-card a {
+  transition: background-color 0.2s ease;
+}
+
+.project-card a:hover {
+  background: var(--color-primary);
+}
+
+.nav-links a {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
+.skills-flex li {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  cursor: default;
+}
+
+.skills-flex li:hover {
+  transform: scale(1.05);
+  background-color: var(--color-secondary);
+  color: white;
+}
 
 
 /* ============================================================
    EXERCISE 5 — Responsive Design (Mobile First)
    ============================================================ */
 
+
 /* Base / Mobile styles are already above (single column, stacked) */
 
-/* TODO: Tablet — min-width: 768px */
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
   h1 { font-size: 3rem; }
   h2 { font-size: 2rem; }
   .about-content { flex-direction: row; }
   .projects-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-links { display: flex; }
-} */
+}
 
-/* TODO: Desktop — min-width: 1024px */
-/* @media (min-width: 1024px) {
+@media (min-width: 1024px) {
   .container { max-width: 1100px; margin: 0 auto; }
   h1 { font-size: 4rem; }
   .projects-grid { grid-template-columns: repeat(3, 1fr); }
-} */
+}
 
 
 /* ============================================================
